@@ -1,3 +1,6 @@
+import json 
+import requests 
+import boto3
 from sanic import Sanic
 from sanic.response import json
 import imutils
@@ -13,12 +16,30 @@ app = Sanic("Meet")
 # if the image is a face, return true
 # if the image is not a face, return false
 
-@app.get("/")
+import dotenv
+import os
+
+dotenv.load_dotenv()
+
+AWS_SECRET_KEY = os.getenv("AWS_SECRET_KEY")
+AWS_ACCESS_KEY = os.getenv("AWS_ACCESS_KEY")
+
+@app.post("/face_detection")
 def face_detection(request):
     print("face detection result:")
-    # content = request.json
-    # image_file = content["image_file"] # filename = enroll form user icon if pass upload to (users.user_icon)
-    image = imutils.url_to_image('https://img.freepik.com/free-photo/close-up-portrait-young-bearded-man-face_171337-2887.jpg?w=1800&t=st=1677637603~exp=1677638203~hmac=833313d628c0a412da7fa44c822ff0fa59d3ea8792a9e67acc0cba6dfe5cc205')
+    filename = (request.json)["filename"]
+
+    BUCKET_NAME ="meet-tecky"
+    AWS_REGION_NAME="us-west-1"
+    # AWS_SECRET_KEY = "your secret key"
+    # AWS_ACCESS_KEY = "your access key"
+    client_s3=boto3.client(service_name="s3", aws_access_key_id=AWS_ACCESS_KEY,aws_secret_access_key=AWS_SECRET_KEY,region_name=AWS_REGION_NAME)
+    
+    
+    presignedURL= client_s3.generate_presigned_url('get_object', Params={'Bucket': BUCKET_NAME, 'Key': filename}, ExpiresIn=3600)    
+    print("s3PresignedURL: \n", presignedURL)
+
+    image = imutils.url_to_image(presignedURL)
     # image = cv2.imread(image_file)
     image = imutils.resize(image, width=400)
     (h, w) = image.shape[:2]
@@ -52,8 +73,21 @@ def face_detection(request):
             print("confidence: ",confidence)
             isFace = True
     
-    print(isFace)			
-    return json(isFace)
+    print(isFace)
+    # # Set the API endpoint URL 
+    # url = "http://localhost:8000/" 
+
+    # # Set the content type to JSON 
+    # headers = {'Content-Type': 'application/json'} 
+
+    # # Make the POST request to the API endpoint with the JSON data 
+    # response = requests.post(url, data=json(isFace), headers=headers) 
+
+    # # Print the response status code 
+    # print(response.status_code) 			
+    return json({ "isFace" : isFace})
+
+
     
 def url_to_image(url, readFlag=cv2.IMREAD_COLOR):
     # download the image, convert it to a NumPy array, and then read
