@@ -1,23 +1,17 @@
-import json 
-import requests 
+import json  
 import boto3
 from sanic import Sanic
 from sanic.response import json
 import imutils
 import numpy as np
 import cv2
+import dotenv
+import os
 from urllib.request import urlopen
+# import requests
 
 app = Sanic("Meet")
 
-# change to post method
-# write some logic to get the image url from aws s3
-# insert url into the image_file variable
-# if the image is a face, return true
-# if the image is not a face, return false
-
-import dotenv
-import os
 
 dotenv.load_dotenv()
 
@@ -73,18 +67,7 @@ def face_detection(request):
             print("confidence: ",confidence)
             isFace = True
     
-    print(isFace)
-    # # Set the API endpoint URL 
-    # url = "http://localhost:8000/" 
-
-    # # Set the content type to JSON 
-    # headers = {'Content-Type': 'application/json'} 
-
-    # # Make the POST request to the API endpoint with the JSON data 
-    # response = requests.post(url, data=json(isFace), headers=headers) 
-
-    # # Print the response status code 
-    # print(response.status_code) 			
+    print(isFace)	
     return json({ "isFace" : isFace})
 
 
