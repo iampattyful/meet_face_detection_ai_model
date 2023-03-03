@@ -12,11 +12,7 @@ from urllib.request import urlopen
 
 app = Sanic("Meet")
 
-
 dotenv.load_dotenv()
-
-AWS_SECRET_KEY = os.getenv("AWS_SECRET_KEY")
-AWS_ACCESS_KEY = os.getenv("AWS_ACCESS_KEY")
 
 @app.post("/face_detection")
 def face_detection(request):
@@ -25,16 +21,13 @@ def face_detection(request):
 
     BUCKET_NAME ="meet-tecky"
     AWS_REGION_NAME="us-west-1"
-    # AWS_SECRET_KEY = "your secret key"
-    # AWS_ACCESS_KEY = "your access key"
+    AWS_SECRET_KEY = os.getenv("AWS_SECRET_KEY")
+    AWS_ACCESS_KEY = os.getenv("AWS_ACCESS_KEY")
     client_s3=boto3.client(service_name="s3", aws_access_key_id=AWS_ACCESS_KEY,aws_secret_access_key=AWS_SECRET_KEY,region_name=AWS_REGION_NAME)
-    
-    
     presignedURL= client_s3.generate_presigned_url('get_object', Params={'Bucket': BUCKET_NAME, 'Key': filename}, ExpiresIn=3600)    
     print("s3PresignedURL: \n", presignedURL)
 
     image = imutils.url_to_image(presignedURL)
-    # image = cv2.imread(image_file)
     image = imutils.resize(image, width=400)
     (h, w) = image.shape[:2]
     print("image size: ", w,h)
