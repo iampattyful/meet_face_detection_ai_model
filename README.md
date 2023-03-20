@@ -6,11 +6,26 @@
 
 *Tech Stack*:	OpenCV, Numpy, Sanic, Python, Knex.js, TypeScript, JavaScript, HTML, CSS, Bootstrap, Node.js, Express.js, Socket.IO, PostgreSQL, NGINX, Certbot, AWS EC2, AWS Route 53, AWS S3
 
-
-I used following blog as a reference:  
-[Face detection with OpenCV and deep learning](https://pyimagesearch.com/2018/02/26/face-detection-with-opencv-and-deep-learning/)
-
-> My contribution in this project:
+> *My contribution in this project:*
+>
+> **Artifical Intelligence Model**
 > - deployed this python model to AWS EC2 at (https://ai.clsfei.link/)
 > - utilizing Amazon S3 service to post user image from Express server via RESTful API to this face detection model to verify the presence of human face in the posted image
-> - the pre-trained model of the reference is modified by me to fit our project's need
+> - the pre-trained model of the reference [Face detection with OpenCV and deep learning](https://pyimagesearch.com/2018/02/26/face-detection-with-opencv-and-deep-learning/) is modified by me to fit our project's need
+>
+> Please refer to [meet_server](https://github.com/iampattyful/meet_server) for front end and back end development source codes.
+>
+> **Front end development**
+> * *Login/Enroll new user function:* p3/public/index.html, p3/public/index.css, p3/public/index.js, p3/public/enroll.js
+> * *Filter request function:* p3/public/main.html, p3/public/filter_jorm.css, p3/public/filter_jorm.js
+> * *Error-handling page:* p3/public/error.html, p3/public/error.css
+>
+> **Back end development**
+> * *User controller and service:* p3/src/controller/userController.ts, p3/src/service/userService.ts, p3/src/guard.ts
+> * *Filter controller and service:* p3/src/controller/filterController.ts, p3/src/service/filterService.ts
+> * *Amazon S3 helper:* p3/src/aws.ts
+> * *File-handling helper:* p3/src/helper.ts
+> * *Error-handling helper:* p3/src/error.ts
+>
+> **Database development**
+> * *Knex Seed:* p3/src/seeds/p3.ts
