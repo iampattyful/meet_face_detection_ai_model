@@ -1,6 +1,6 @@
 # meet_face_detection_ai_model
 
-## Meet – Mobile dating web application (https://clsfei.link/)
+## [Meet – Mobile dating web application](https://clsfei.link/)
 
 *Summary*:	Meet is an mobile dating web application for users to meet other users using artificial intelligence technology to conduct face detection verification in registration. After registering an account successfully, users can view other users’ profiles based on the filtered result and send instant messaging within the private chat room only if they have liked each other.  
 
