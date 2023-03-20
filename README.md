@@ -11,6 +11,6 @@ I used following blog as a reference:
 [Face detection with OpenCV and deep learning](https://pyimagesearch.com/2018/02/26/face-detection-with-opencv-and-deep-learning/)
 
 > My contribution in this project:
-> - deployed the ai model to AWS EC2 at (https://ai.clsfei.link/)
-> - utilizing Amazon S3 service to post user image via RESTful API to this face detection ai model to verify the presence of human face in the posted image
-> - the reference source code is modified by me to fit our project's need
+> - deployed this python model to AWS EC2 at (https://ai.clsfei.link/)
+> - utilizing Amazon S3 service to post user image from Express server via RESTful API to this face detection model to verify the presence of human face in the posted image
+> - the pre-trained model of the reference is modified by me to fit our project's need
